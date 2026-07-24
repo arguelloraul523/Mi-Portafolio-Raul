@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.18.1/axios.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="perfil-container">
+
+        <div class="perfil-header">
+            <div class="header-caja">
+                <span class="header-titulo" id="titulo"></span>
+                <h1><span id="nombre"></span></h1>
+                <h1><span id="apellido"></span></h1>
+            </div>
+            <img id="perfil" alt="Foto de perfil">
+        </div>
+
+        <div class="perfil-grid">
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Contacto</h2>
+                <div class="fila"><span class="etiqueta">Email</span><span class="valor" id="email"></span></div>
+                <div class="fila"><span class="etiqueta">Teléfono</span><span class="valor" id="phone"></span></div>
+                <div class="fila"><span class="etiqueta">Celular</span><span class="valor" id="celular"></span></div>
+            </div>
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Personal</h2>
+                <div class="fila"><span class="etiqueta">Género</span><span class="valor" id="gen"></span></div>
+                <div class="fila"><span class="etiqueta">Edad</span><span class="valor" id="años"></span></div>
+                <div class="fila"><span class="etiqueta">Fecha de Nac.</span><span class="valor" id="fecha_na"></span></div>
+                <div class="fila"><span class="etiqueta">Nacionalidad</span><span class="valor" id="nat"></span></div>
+                <div class="fila"><span class="etiqueta"><span id="idnombre"></span></span><span class="valor" id="identificador"></span></div>
+            </div>
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Ubicación</h2>
+                <div class="fila"><span class="etiqueta">Dirección</span><span class="valor"><span id="callenombre"></span> #<span id="callenumero"></span></span></div>
+                <div class="fila"><span class="etiqueta">Ciudad</span><span class="valor"><span id="ciudad"></span>, <span id="estado"></span></span></div>
+                <div class="fila"><span class="etiqueta">País</span><span class="valor" id="pais"></span></div>
+                <div class="fila"><span class="etiqueta">Código postal</span><span class="valor" id="codigopostal"></span></div>
+                <div class="fila"><span class="etiqueta">Coordenadas</span><span class="valor"><span id="cordenadasla"></span>, <span id="cordenadaslon"></span></span></div>
+                <div class="fila"><span class="etiqueta">Zona horaria</span><span class="valor"><span id="zonahorariadescri"></span> (<span id="zonahoraria2"></span>)</span></div>
+            </div>
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Cuenta</h2>
+                <div class="fila"><span class="etiqueta">Usuario</span><span class="valor" id="loginuser"></span></div>
+                <div class="fila"><span class="etiqueta">Contraseña</span><span class="valor" id="loginpassword"></span></div>
+                <div class="fila"><span class="etiqueta">UUID</span><span class="valor" id="loginuuid"></span></div>
+                <div class="fila"><span class="etiqueta">Registrado hace</span><span class="valor"><span id="registrado"></span> años (<span id="registrado2"></span>)</span></div>
+                <div class="fila"><span class="etiqueta">MD5</span><span class="valor" id="loginname"></span></div>
+                <div class="fila"><span class="etiqueta">SHA1</span><span class="valor" id="loginsha1"></span></div>
+                <div class="fila"><span class="etiqueta">SHA256</span><span class="valor" id="loginsha256"></span></div>
+                <div class="fila"><span class="etiqueta">Salt</span><span class="valor" id="loginsalt"></span></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async()=>{
+            let res = await axios.get("https://randomuser.me/api/")
+            console.log(res);
+            let nombre = document.getElementById("nombre")
+            nombre.textContent = res.data.results[0].name.first
+            let apellido = document.getElementById("apellido")
+            apellido.textContent = res.data.results[0].name.last
+            let titulo = document.getElementById("titulo")
+            titulo.textContent = res.data.results [0].name.title
+            let años = document.getElementById("años")
+            años.textContent = res.data.results[0].dob.age
+            let fecha_na = document.getElementById("fecha_na")
+            fecha_na.textContent = new Date (res.data.results[0].dob.date).toLocaleDateString("es-ES");
+            let gen = document.getElementById("gen")
+            gen.textContent = res.data.results[0].gender
+            let celular = document.getElementById("celular")
+            celular.textContent = res.data.results[0].cell
+            let perfil = document.getElementById("perfil")
+            perfil.src = res.data.results[0].picture.large
+            let idnombre = document.getElementById("idnombre")
+            idnombre.textContent = res.data.results[0].id.name
+            let identificador = document.getElementById("identificador")
+            identificador.textContent = res.data.results[0].id.value
+            let pais = document.getElementById ("pais")
+            pais.textContent = res.data.results [0].location.country
+            let ciudad = document.getElementById("ciudad")
+            ciudad.textContent = res.data.results[0].location.city
+            let estado = document.getElementById("estado")
+            estado.textContent = res.data.results[0].location.state
+            let callenombre = document.getElementById("callenombre")
+            callenombre.textContent = res.data.results[0].location.street.name
+            let callenumero = document.getElementById("callenumero")
+            callenumero.textContent = res.data.results[0].location.street.number
+            let cordenadasla = document.getElementById("cordenadasla")
+            cordenadasla.textContent = res.data.results[0].location.coordinates.latitude
+            let cordenadaslon = document.getElementById("cordenadaslon")
+            cordenadaslon.textContent = res.data.results[0].location.coordinates.longitude
+            let codigopostal = document.getElementById("codigopostal")
+            codigopostal.textContent = res.data.results[0].location.postcode
+            let zonahorariadescri = document.getElementById("zonahorariadescri")
+            zonahorariadescri.textContent = res.data.results[0].location.timezone.description
+            let zonahoraria2 = document.getElementById("zonahoraria2")
+            zonahoraria2.textContent = res.data.results[0].location.timezone.offset
+            let email = document.getElementById("email")
+            email.textContent = res.data.results[0].email
+            let nat = document.getElementById("nat")
+            nat.textContent = res.data.results[0].nat
+            let phone = document.getElementById("phone")
+            phone.textContent = res.data.results[0].phone
+            let registrado = document.getElementById("registrado")
+            registrado.textContent = res.data.results[0].registered.age
+            let registrado2 = document.getElementById("registrado2")
+            registrado2.textContent = registrado2.textContent = new Date (res.data.results[0].registered.date).toLocaleDateString("es-ES");
+            let loginname = document.getElementById("loginname")
+            loginname.textContent = res.data.results[0].login.md5
+            let loginpassword = document.getElementById("loginpassword")
+            loginpassword.textContent = res.data.results[0].login.password
+            let loginsalt = document.getElementById("loginsalt")
+            loginsalt.textContent = res.data.results[0].login.salt
+            let loginsha1 = document.getElementById("loginsha1")
+            loginsha1.textContent = res.data.results[0].login.sha1
+            let loginsha256 = document.getElementById("loginsha256")
+            loginsha256.textContent = res.data.results[0].login.sha256
+            let loginuser = document.getElementById("loginuser")
+            loginuser.textContent = res.data.results[0].login.username
+            let loginuuid = document.getElementById("loginuuid")
+            loginuuid.textContent = res.data.results[0].login.uuid
+        })
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 60px 40px 40px 40px;
+        }
+
+        .perfil-container {
+            width: 100%;
+        }
+
+
+        .perfil-header {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .header-caja {
+            background-color: #3b5656;
+            color: #fff;
+            padding: 30px 40px;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .header-titulo {
+            display: block;
+            font-size: 0.85rem;
+            color: #9aa3b5;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .header-caja h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            line-height: 1.2;
+        }
+
+        #perfil {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f4f4f4;
+            box-shadow: 0 0 0 2px #1c2331;
+        }
+
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .perfil-seccion {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px 25px;
+        }
+
+        .seccion-titulo {
+            font-size: 1rem;
+            color: #1c2331;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fila {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .etiqueta {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .valor {
+            text-align: right;
+            word-break: break-word;
+            color: #222;
+        }
+    </style>
+</body>
+</html>
