@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.18.1/axios.js"></script>
     <title>Document</title>
 </head>
+
 <body>
     <div class="perfil-container">
 
@@ -31,27 +33,38 @@
                 <h2 class="seccion-titulo">Personal</h2>
                 <div class="fila"><span class="etiqueta">Género</span><span class="valor" id="gen"></span></div>
                 <div class="fila"><span class="etiqueta">Edad</span><span class="valor" id="años"></span></div>
-                <div class="fila"><span class="etiqueta">Fecha de Nac.</span><span class="valor" id="fecha_na"></span></div>
+                <div class="fila"><span class="etiqueta">Fecha de Nac.</span><span class="valor" id="fecha_na"></span>
+                </div>
                 <div class="fila"><span class="etiqueta">Nacionalidad</span><span class="valor" id="nat"></span></div>
-                <div class="fila"><span class="etiqueta"><span id="idnombre"></span></span><span class="valor" id="identificador"></span></div>
+                <div class="fila"><span class="etiqueta"><span id="idnombre"></span></span><span class="valor"
+                        id="identificador"></span></div>
             </div>
 
             <div class="perfil-seccion">
                 <h2 class="seccion-titulo">Ubicación</h2>
-                <div class="fila"><span class="etiqueta">Dirección</span><span class="valor"><span id="callenombre"></span> #<span id="callenumero"></span></span></div>
-                <div class="fila"><span class="etiqueta">Ciudad</span><span class="valor"><span id="ciudad"></span>, <span id="estado"></span></span></div>
+                <div class="fila"><span class="etiqueta">Dirección</span><span class="valor"><span
+                            id="callenombre"></span> #<span id="callenumero"></span></span></div>
+                <div class="fila"><span class="etiqueta">Ciudad</span><span class="valor"><span id="ciudad"></span>,
+                        <span id="estado"></span></span></div>
                 <div class="fila"><span class="etiqueta">País</span><span class="valor" id="pais"></span></div>
-                <div class="fila"><span class="etiqueta">Código postal</span><span class="valor" id="codigopostal"></span></div>
-                <div class="fila"><span class="etiqueta">Coordenadas</span><span class="valor"><span id="cordenadasla"></span>, <span id="cordenadaslon"></span></span></div>
-                <div class="fila"><span class="etiqueta">Zona horaria</span><span class="valor"><span id="zonahorariadescri"></span> (<span id="zonahoraria2"></span>)</span></div>
+                <div class="fila"><span class="etiqueta">Código postal</span><span class="valor"
+                        id="codigopostal"></span></div>
+                <div class="fila"><span class="etiqueta">Coordenadas</span><span class="valor"><span
+                            id="cordenadasla"></span>, <span id="cordenadaslon"></span></span>
+                    <div> <button class="btn-mapa" onclick="mapa()">Ver en mapa</button></div>
+                </div>
+                <div class="fila"><span class="etiqueta">Zona horaria</span><span class="valor"><span
+                            id="zonahorariadescri"></span> (<span id="zonahoraria2"></span>)</span></div>
             </div>
 
             <div class="perfil-seccion">
                 <h2 class="seccion-titulo">Cuenta</h2>
                 <div class="fila"><span class="etiqueta">Usuario</span><span class="valor" id="loginuser"></span></div>
-                <div class="fila"><span class="etiqueta">Contraseña</span><span class="valor" id="loginpassword"></span></div>
+                <div class="fila"><span class="etiqueta">Contraseña</span><span class="valor" id="loginpassword"></span>
+                </div>
                 <div class="fila"><span class="etiqueta">UUID</span><span class="valor" id="loginuuid"></span></div>
-                <div class="fila"><span class="etiqueta">Registrado hace</span><span class="valor"><span id="registrado"></span> años (<span id="registrado2"></span>)</span></div>
+                <div class="fila"><span class="etiqueta">Registrado hace</span><span class="valor"><span
+                            id="registrado"></span> años (<span id="registrado2"></span>)</span></div>
                 <div class="fila"><span class="etiqueta">MD5</span><span class="valor" id="loginname"></span></div>
                 <div class="fila"><span class="etiqueta">SHA1</span><span class="valor" id="loginsha1"></span></div>
                 <div class="fila"><span class="etiqueta">SHA256</span><span class="valor" id="loginsha256"></span></div>
@@ -63,7 +76,7 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async()=>{
+        document.addEventListener("DOMContentLoaded", async () => {
             let res = await axios.get("https://randomuser.me/api/")
             console.log(res);
             let nombre = document.getElementById("nombre")
@@ -71,11 +84,11 @@
             let apellido = document.getElementById("apellido")
             apellido.textContent = res.data.results[0].name.last
             let titulo = document.getElementById("titulo")
-            titulo.textContent = res.data.results [0].name.title
+            titulo.textContent = res.data.results[0].name.title
             let años = document.getElementById("años")
             años.textContent = res.data.results[0].dob.age
             let fecha_na = document.getElementById("fecha_na")
-            fecha_na.textContent = new Date (res.data.results[0].dob.date).toLocaleDateString("es-ES");
+            fecha_na.textContent = new Date(res.data.results[0].dob.date).toLocaleDateString("es-ES");
             let gen = document.getElementById("gen")
             gen.textContent = res.data.results[0].gender
             let celular = document.getElementById("celular")
@@ -86,8 +99,8 @@
             idnombre.textContent = res.data.results[0].id.name
             let identificador = document.getElementById("identificador")
             identificador.textContent = res.data.results[0].id.value
-            let pais = document.getElementById ("pais")
-            pais.textContent = res.data.results [0].location.country
+            let pais = document.getElementById("pais")
+            pais.textContent = res.data.results[0].location.country
             let ciudad = document.getElementById("ciudad")
             ciudad.textContent = res.data.results[0].location.city
             let estado = document.getElementById("estado")
@@ -115,7 +128,7 @@
             let registrado = document.getElementById("registrado")
             registrado.textContent = res.data.results[0].registered.age
             let registrado2 = document.getElementById("registrado2")
-            registrado2.textContent = registrado2.textContent = new Date (res.data.results[0].registered.date).toLocaleDateString("es-ES");
+            registrado2.textContent = registrado2.textContent = new Date(res.data.results[0].registered.date).toLocaleDateString("es-ES");
             let loginname = document.getElementById("loginname")
             loginname.textContent = res.data.results[0].login.md5
             let loginpassword = document.getElementById("loginpassword")
@@ -131,6 +144,16 @@
             let loginuuid = document.getElementById("loginuuid")
             loginuuid.textContent = res.data.results[0].login.uuid
         })
+
+        function mapa() {
+            let cordenadasla = document.getElementById("cordenadasla").textContent;
+            let cordenadaslon = document.getElementById("cordenadaslon").textContent;
+            if (cordenadasla && cordenadaslon) {
+                window.open(`https://www.google.com/maps?q=${cordenadasla},${cordenadaslon}`, "_blank");
+            }
+
+        }
+
     </script>
 
     <style>
@@ -234,6 +257,22 @@
             word-break: break-word;
             color: #222;
         }
+
+        #btn-mapa {
+            background-color: #3b5656;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        #btn-mapa:hover {
+            background-color: #2c4141;
+        }
     </style>
 </body>
+
 </html>
