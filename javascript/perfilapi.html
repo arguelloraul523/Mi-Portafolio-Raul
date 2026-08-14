@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 60px 40px 40px 40px;
+        }
+
+        .perfil-container {
+            width: 100%;
+        }
+
+        .btn-volver {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+
+        .perfil-header {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .header-caja {
+            background-color: #3b5656;
+            color: #fff;
+            padding: 30px 40px;
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .header-titulo {
+            display: block;
+            font-size: 0.85rem;
+            color: #9aa3b5;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .header-caja h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            line-height: 1.2;
+        }
+
+        #perfil {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f4f4f4;
+            box-shadow: 0 0 0 2px #1c2331;
+        }
+
+        .estrella-perfil {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.6rem;
+            color: #6b7789;
+            cursor: pointer;
+        }
+
+        .estrella-perfil.activa {
+            color: #f5b500;
+        }
+
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .perfil-seccion {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px 25px;
+        }
+
+        .seccion-titulo {
+            font-size: 1rem;
+            color: #1c2331;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fila {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .etiqueta {
+            color: #666;
+            font-weight: bold;
+        }
+
+        .valor {
+            text-align: right;
+            word-break: break-word;
+            color: #222;
+        }
+
+        .btn-mapa {
+            background-color: #3b5656;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="perfil-container">
+
+        <button class="btn-volver" onclick="history.back()">← Volver</button>
+
+        <div class="perfil-header">
+            <div class="header-caja">
+                <span class="header-titulo" id="titulo"></span>
+                <h1><span id="nombre"></span></h1>
+                <h1><span id="apellido"></span></h1>
+            </div>
+            <img id="perfil" alt="Foto de perfil">
+            <span class="estrella-perfil" id="estrellaPerfil">★</span>
+        </div>
+
+        <div class="perfil-grid">
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Contacto</h2>
+                <div class="fila"><span class="etiqueta">Email</span><span class="valor" id="email"></span></div>
+                <div class="fila"><span class="etiqueta">Teléfono</span><span class="valor" id="phone"></span></div>
+                <div class="fila"><span class="etiqueta">Celular</span><span class="valor" id="celular"></span></div>
+            </div>
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Personal</h2>
+                <div class="fila"><span class="etiqueta">Género</span><span class="valor" id="gen"></span></div>
+                <div class="fila"><span class="etiqueta">Edad</span><span class="valor" id="años"></span></div>
+                <div class="fila"><span class="etiqueta">Fecha de Nac.</span><span class="valor" id="fecha_na"></span>
+                </div>
+                <div class="fila"><span class="etiqueta">Nacionalidad</span><span class="valor" id="nat"></span></div>
+                <div class="fila"><span class="etiqueta"><span id="idnombre"></span></span><span class="valor"
+                        id="identificador"></span></div>
+            </div>
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Ubicación</h2>
+                <div class="fila"><span class="etiqueta">Dirección</span><span class="valor"><span
+                            id="callenombre"></span> #<span id="callenumero"></span></span></div>
+                <div class="fila"><span class="etiqueta">Ciudad</span><span class="valor"><span id="ciudad"></span>,
+                        <span id="estado"></span></span></div>
+                <div class="fila"><span class="etiqueta">País</span><span class="valor" id="pais"></span></div>
+                <div class="fila"><span class="etiqueta">Código postal</span><span class="valor"
+                        id="codigopostal"></span></div>
+                <div class="fila">
+                    <span class="etiqueta">Cordenadas</span>
+                    <span class="valor">
+                        <span id="cordenadasla" style="display: none;"></span>
+                        <span id="cordenadaslon" style="display: none;"></span>
+                        <button class="btn-mapa" onclick="mapa()">Ver en mapa</button>
+                    </span>
+                </div>
+                <div class="fila"><span class="etiqueta">Zona horaria</span><span class="valor"><span
+                            id="zonahorariadescri"></span> (<span id="zonahoraria2"></span>)</span></div>
+            </div>
+
+            <div class="perfil-seccion">
+                <h2 class="seccion-titulo">Cuenta</h2>
+                <div class="fila"><span class="etiqueta">Usuario</span><span class="valor" id="loginuser"></span></div>
+                <div class="fila"><span class="etiqueta">Contraseña</span><span class="valor" id="loginpassword"></span>
+                </div>
+                <div class="fila"><span class="etiqueta">UUID</span><span class="valor" id="loginuuid"></span></div>
+                <div class="fila"><span class="etiqueta">Registrado hace</span><span class="valor"><span
+                            id="registrado"></span> años (<span id="registrado2"></span>)</span></div>
+                <div class="fila"><span class="etiqueta">MD5</span><span class="valor" id="loginname"></span></div>
+                <div class="fila"><span class="etiqueta">SHA1</span><span class="valor" id="loginsha1"></span></div>
+                <div class="fila"><span class="etiqueta">SHA256</span><span class="valor" id="loginsha256"></span></div>
+                <div class="fila"><span class="etiqueta">Salt</span><span class="valor" id="loginsalt"></span></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let usuario = JSON.parse(localStorage.getItem("usuarioSeleccionado"))
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!usuario) {
+                window.location.href = "./cards.html"
+                return
+            }
+
+            let nombre = document.getElementById("nombre")
+            nombre.textContent = usuario.name.first
+            let apellido = document.getElementById("apellido")
+            apellido.textContent = usuario.name.last
+            let titulo = document.getElementById("titulo")
+            titulo.textContent = usuario.name.title
+            let años = document.getElementById("años")
+            años.textContent = usuario.dob.age
+            let fecha_na = document.getElementById("fecha_na")
+            fecha_na.textContent = new Date(usuario.dob.date).toLocaleDateString("es-ES");
+            let gen = document.getElementById("gen")
+            gen.textContent = usuario.gender
+            let celular = document.getElementById("celular")
+            celular.textContent = usuario.cell
+            let perfil = document.getElementById("perfil")
+            perfil.src = usuario.picture.large
+            let idnombre = document.getElementById("idnombre")
+            idnombre.textContent = usuario.id.name
+            let identificador = document.getElementById("identificador")
+            identificador.textContent = usuario.id.value
+            let pais = document.getElementById("pais")
+            pais.textContent = usuario.location.country
+            let ciudad = document.getElementById("ciudad")
+            ciudad.textContent = usuario.location.city
+            let estado = document.getElementById("estado")
+            estado.textContent = usuario.location.state
+            let callenombre = document.getElementById("callenombre")
+            callenombre.textContent = usuario.location.street.name
+            let callenumero = document.getElementById("callenumero")
+            callenumero.textContent = usuario.location.street.number
+            let cordenadasla = document.getElementById("cordenadasla")
+            cordenadasla.textContent = usuario.location.coordinates.latitude
+            let cordenadaslon = document.getElementById("cordenadaslon")
+            cordenadaslon.textContent = usuario.location.coordinates.longitude
+            let codigopostal = document.getElementById("codigopostal")
+            codigopostal.textContent = usuario.location.postcode
+            let zonahorariadescri = document.getElementById("zonahorariadescri")
+            zonahorariadescri.textContent = usuario.location.timezone.description
+            let zonahoraria2 = document.getElementById("zonahoraria2")
+            zonahoraria2.textContent = usuario.location.timezone.offset
+            let email = document.getElementById("email")
+            email.textContent = usuario.email
+            let nat = document.getElementById("nat")
+            nat.textContent = usuario.nat
+            let phone = document.getElementById("phone")
+            phone.textContent = usuario.phone
+            let registrado = document.getElementById("registrado")
+            registrado.textContent = usuario.registered.age
+            let registrado2 = document.getElementById("registrado2")
+            registrado2.textContent = new Date(usuario.registered.date).toLocaleDateString("es-ES");
+            let loginname = document.getElementById("loginname")
+            loginname.textContent = usuario.login.md5
+            let loginpassword = document.getElementById("loginpassword")
+            loginpassword.textContent = usuario.login.password
+            let loginsalt = document.getElementById("loginsalt")
+            loginsalt.textContent = usuario.login.salt
+            let loginsha1 = document.getElementById("loginsha1")
+            loginsha1.textContent = usuario.login.sha1
+            let loginsha256 = document.getElementById("loginsha256")
+            loginsha256.textContent = usuario.login.sha256
+            let loginuser = document.getElementById("loginuser")
+            loginuser.textContent = usuario.login.username
+            let loginuuid = document.getElementById("loginuuid")
+            loginuuid.textContent = usuario.login.uuid
+
+            pintarEstrella()
+
+            let estrellaPerfil = document.getElementById("estrellaPerfil")
+            estrellaPerfil.addEventListener("click", toggleFavorito)
+        })
+
+        function pintarEstrella() {
+            let favoritos = JSON.parse(localStorage.getItem("favoritosUsuarios")) || []
+            let estrellaPerfil = document.getElementById("estrellaPerfil")
+
+            if (favoritos.includes(usuario.login.uuid)) {
+                estrellaPerfil.classList.add("activa")
+            } else {
+                estrellaPerfil.classList.remove("activa")
+            }
+        }
+
+        function toggleFavorito() {
+            let favoritos = JSON.parse(localStorage.getItem("favoritosUsuarios")) || []
+
+            if (favoritos.includes(usuario.login.uuid)) {
+                favoritos = favoritos.filter(item => item !== usuario.login.uuid)
+            } else {
+                favoritos.push(usuario.login.uuid)
+            }
+
+            localStorage.setItem("favoritosUsuarios", JSON.stringify(favoritos))
+            pintarEstrella()
+        }
+
+        function mapa() {
+            let cordenadasla = document.getElementById("cordenadasla").textContent;
+            let cordenadaslon = document.getElementById("cordenadaslon").textContent;
+            if (cordenadasla && cordenadaslon) {
+                window.open(`https://www.google.com/maps?q=${cordenadasla},${cordenadaslon}`, "_blank");
+            }
+
+        }
+
+    </script>
+
+    
+</body>
+
+</html>
